@@ -17,7 +17,7 @@ WORKDIR /app
 COPY --from=build /app/target/country-chicken-backend-*.jar app.jar
 
 # Expose application port
-EXPOSE 8080
+EXPOSE 8081
 
 # Healthcheck (works with Spring Boot Actuator)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
