@@ -1,45 +1,27 @@
-# ================================
-# Stage 1: Build
-# ================================
-FROM maven:3.9.9-eclipse-temurin-17 AS build
-
+# Stage 1: Build with Maven
+FROM maven:3.9.15-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Cache dependencies
+# Copy pom.xml and source
 COPY pom.xml .
-RUN mvn dependency:go-offline -B
-
-# Build application
 COPY src ./src
+
+# Build the application
 RUN mvn clean package -DskipTests
 
-# ================================
-# Stage 2: Runtime
-# ================================
-FROM eclipse-temurin:17-jre-jammy
-
-# Create non-root user
-RUN groupadd -r spring && useradd -r -g spring spring
-
+# Stage 2: Run with JDK 21
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy JAR (version-safe)
+# Copy JAR from build stage
 COPY --from=build /app/target/country-chicken-backend-*.jar app.jar
 
-# Logs
-RUN mkdir -p /app/logs && chown -R spring:spring /app
-
-USER spring:spring
-
+# Expose application port
 EXPOSE 8080
 
-# Healthcheck (requires actuator)
-HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+# Healthcheck (works with Spring Boot Actuator)
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
   CMD curl -f http://localhost:8080/actuator/health || exit 1
 
-ENV JAVA_OPTS="-Xms256m -Xmx512m \
--XX:+UseG1GC \
--XX:+HeapDumpOnOutOfMemoryError \
--XX:HeapDumpPath=/app/logs"
-
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+# Run the application
+ENTRYPOINT ["java","-jar","app.jar"]
