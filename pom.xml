@@ -136,12 +136,12 @@
     <!-- ===================== -->
     <distributionManagement>
         <repository>
-            <id>nexus-mvn-release</id>
-            <url>http://3.26.3.72:8081/repository/mvn-release/</url>
+            <id>nexus-maven-release</id>
+            <url>http://3.26.3.72:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus-mvn-snapshot</id>
-            <url>http://3.26.3.72:8081/repository/mvn-release/</url>
+            <id>nexus-maven-snapshot</id>
+            <url>http://3.26.3.72:8081/repository/maven-releases/</url>
         </snapshotRepository>
     </distributionManagement>
 
