@@ -9,24 +9,23 @@ pipeline {
     environment {
         APP_NAME         = 'country-chicken-backend'
 
-        // ✅ Nexus host/ports
         NEXUS_MAVEN_URL  = '3.26.3.72:8081'
         NEXUS_DOCKER_URL = '3.26.3.72:8081'
 
-        MAVEN_REPO       = 'mvn-release'
-        DOCKER_REPO      = 'docker-release'
+        MAVEN_REPO       = 'maven-releases'
+        DOCKER_REPO      = 'docker-releases'
 
         GROUP_ID         = 'com.countrychicken'
-        VERSION          = ''
-        JAR_NAME         = ''
+        VERSION          = '1.0.0-SNAPSHOT'
+        JAR_NAME         = 'Country Chicken Backend'
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'git@github.com:yoganandadevops/countrychicken.git'
+                git branch: 'test',
+                    url: 'https://github.com/yoganandadevops/countrychicken.git'
             }
         }
 
@@ -50,7 +49,7 @@ pipeline {
 
         stage('Build JAR') {
             steps {
-                sh 'mvn clean package -DskipTests -s $HOME/.m2/settings.xml'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
@@ -94,6 +93,7 @@ pipeline {
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
                     sh """
+
                     echo "$DOCKER_PASS" | docker login ${NEXUS_DOCKER_URL} -u "$DOCKER_USER" --password-stdin
 
                     docker push ${NEXUS_DOCKER_URL}/${DOCKER_REPO}/${APP_NAME}:${VERSION}
@@ -101,6 +101,7 @@ pipeline {
 
                     docker logout ${NEXUS_DOCKER_URL}
                     """
+
                 }
             }
         }
