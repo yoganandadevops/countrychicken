@@ -14,7 +14,6 @@
 
     <groupId>com.countrychicken</groupId>
     <artifactId>country-chicken-backend</artifactId>
-    <!-- Use SNAPSHOT for dev, plain version for release -->
     <version>1.0.0-SNAPSHOT</version>
 
     <name>Country Chicken Backend</name>
@@ -27,7 +26,7 @@
     </properties>
 
     <dependencies>
-        <!-- (same dependencies as before) -->
+        <!-- your dependencies here -->
     </dependencies>
 
     <build>
@@ -37,8 +36,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <!-- Maven Release Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
@@ -51,7 +48,6 @@
         </plugins>
     </build>
 
-    <!-- Nexus repositories for release and snapshot -->
     <distributionManagement>
         <repository>
             <id>maven-releases</id>
@@ -59,7 +55,7 @@
         </repository>
         <snapshotRepository>
             <id>maven-snapshots</id>
-            <url>http://32.236.30.85:8081/repository/maven-releases/</url>
+            <url>http://32.236.30.85:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -77,10 +73,5 @@
             </properties>
         </profile>
     </profiles>
+
 </project>
-<distributionManagement>
-    <repository>
-        <id>maven-releases</id>
-        <url>http://32.236.30.85:8081/repository/maven-releases/</url>
-    </repository>
-</distributionManagement>
