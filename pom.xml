@@ -20,24 +20,23 @@
 
     <name>Country Chicken Backend</name>
     <description>Backend service for Country Chicken Application</description>
-    <url>https://github.com/yoganandadevops/countrychicken</url>
 
     <!-- ===================== -->
     <!-- Properties -->
     <!-- ===================== -->
     <properties>
-        <!-- Java 21 everywhere -->
-        <java.version>21</java.version>
+        <!-- Java 17 everywhere -->
+        <java.version>17</java.version>
+
         <springdoc.version>1.7.0</springdoc.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
     <!-- ===================== -->
     <!-- Dependencies -->
     <!-- ===================== -->
     <dependencies>
+
         <!-- Spring Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,36 +76,24 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Validation -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <!-- ===================== -->
     <!-- Build -->
     <!-- ===================== -->
     <build>
+
+        <!-- Predictable JAR name for Docker & Jenkins -->
         <finalName>country-chicken-backend-${project.version}</finalName>
+
         <plugins>
-            <!-- Compiler Plugin for Java 21 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
 
             <!-- Spring Boot Plugin -->
             <plugin>
@@ -114,36 +101,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- JaCoCo for code coverage -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
-
-    <!-- ===================== -->
-    <!-- Distribution Management -->
-    <!-- ===================== -->
-    <distributionManagement>
-        <repository>
-            <id>nexus-maven-release</id>
-            <url>http://3.26.3.72:8081/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus-maven-snapshot</id>
-            <url>http://3.26.3.72:8081/repository/maven-releases/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <!-- ===================== -->
     <!-- Profiles -->
@@ -155,6 +114,7 @@
                 <spring.profiles.active>dev</spring.profiles.active>
             </properties>
         </profile>
+
         <profile>
             <id>prod</id>
             <properties>
@@ -164,4 +124,3 @@
     </profiles>
 
 </project>
-
