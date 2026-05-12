@@ -78,3 +78,9 @@
         </profile>
     </profiles>
 </project>
+<distributionManagement>
+    <repository>
+        <id>maven-releases</id>
+        <url>http://32.236.30.85:8081/repository/maven-releases/</url>
+    </repository>
+</distributionManagement>
