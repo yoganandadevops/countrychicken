@@ -44,7 +44,7 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Lombok (annotations like @Data, @Slf4j) -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -59,10 +59,11 @@
             <version>${springdoc.version}</version>
         </dependency>
 
-        <!-- Database driver (example: MySQL) -->
+        <!-- MySQL driver (explicit version required) -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -102,7 +103,6 @@
         </plugins>
     </build>
 
-    <!-- Nexus repositories -->
     <distributionManagement>
         <repository>
             <id>maven-releases</id>
